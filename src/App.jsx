@@ -6,6 +6,7 @@ import { Loader2 } from 'lucide-react';
 import ConfiguracionPortal from './pages/ConfiguracionPortal';
 import UsuariosRoles from './pages/UsuariosRoles';
 import PortalPublico from './pages/PortalPublico';
+import Dashboard from './pages/Dashboard';
 
 function RutaProtegida({ children }) {
   const { user, loading } = useAuth();
@@ -55,13 +56,9 @@ export default function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route
               path="dashboard"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Dashboard BI"
-                  descripcion="Indicadores ejecutivos y rendimiento comercial."
-                />
-              }
-            />
+              element={<Dashboard />}
+              />
+              
             <Route
               path="inmuebles"
               element={
