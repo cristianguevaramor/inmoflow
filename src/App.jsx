@@ -7,6 +7,7 @@ import ConfiguracionPortal from './pages/ConfiguracionPortal';
 import UsuariosRoles from './pages/UsuariosRoles';
 import PortalPublico from './pages/PortalPublico';
 import Dashboard from './pages/Dashboard';
+import GestionDocumental from './pages/GestionDocumental';
 
 function RutaProtegida({ children }) {
   const { user, loading } = useAuth();
@@ -58,7 +59,7 @@ export default function App() {
               path="dashboard"
               element={<Dashboard />}
               />
-              
+
             <Route
               path="inmuebles"
               element={
@@ -86,14 +87,9 @@ export default function App() {
                 />
               }
             />
-            <Route
-              path="contratos"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Contratos y Alertas"
-                  descripcion="Control documental y vencimientos."
-                />
-              }
+            <Route 
+            path="contratos" 
+            element={<GestionDocumental />} 
             />
             <Route
               path="finanzas"
