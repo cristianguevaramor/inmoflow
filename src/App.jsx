@@ -8,6 +8,7 @@ import UsuariosRoles from './pages/UsuariosRoles';
 import PortalPublico from './pages/PortalPublico';
 import Dashboard from './pages/Dashboard';
 import GestionDocumental from './pages/GestionDocumental';
+import Inmuebles from './pages/Inmuebles';
 
 function RutaProtegida({ children }) {
   const { user, loading } = useAuth();
@@ -60,15 +61,11 @@ export default function App() {
               element={<Dashboard />}
               />
 
-            <Route
-              path="inmuebles"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Gestión de Inmuebles"
-                  descripcion="Inventario de propiedades y publicación en portal web."
-                />
-              }
+            <Route 
+            path="inmuebles" 
+            element={<Inmuebles />} 
             />
+            
             <Route
               path="prospectos"
               element={

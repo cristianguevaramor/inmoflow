@@ -37,6 +37,7 @@ export default function PortalPublico() {
           .from('inmuebles')
           .select('*')
           .eq('agencia_id', agenciaData.id)
+          .eq('publicado_web', true)
           .order('created_at', { ascending: false });
 
         if (!propsError) {
