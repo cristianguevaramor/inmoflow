@@ -3,6 +3,9 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Layout from './components/Layout';
 import { Loader2 } from 'lucide-react';
+import ConfiguracionPortal from './pages/ConfiguracionPortal';
+import UsuariosRoles from './pages/UsuariosRoles';
+import PortalPublico from './pages/PortalPublico';
 
 function RutaProtegida({ children }) {
   const { user, loading } = useAuth();
@@ -37,16 +40,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/p/:slug"
-            element={
-              <ModuloEnConstruccion
-                titulo="Portal Web Inmobiliario Público"
-                descripcion="Catálogo dinámico por slug de agencia."
-              />
-            }
+           <Route 
+            path="/p/:slug" 
+            element={<PortalPublico />} 
           />
-
           <Route
             path="/"
             element={
@@ -112,24 +109,13 @@ export default function App() {
             />
             <Route
               path="configuracion-portal"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Configuración de Portal Web"
-                  descripcion="Identidad visual, logo, color corporativo y slug."
-                />
-              }
+              element={<ConfiguracionPortal />}
             />
             <Route
               path="usuarios-roles"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Usuarios y Roles RBAC"
-                  descripcion="Administración de equipo y matriz de permisos."
-                />
-              }
+              element={<UsuariosRoles />}
             />
           </Route>
-
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>

@@ -77,8 +77,6 @@ export default function Layout() {
     },
   ].filter((item) => item.visible);
 
-  const colorMarca = agencia?.color_primario || '#0F172A';
-
   return (
     <div className="min-h-screen bg-slate-100 flex">
       {/* Overlay móvil */}
@@ -89,34 +87,33 @@ export default function Layout() {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar con estilo corporativo fijo para el panel interno */}
       <aside
-        style={{ backgroundColor: colorMarca }}
-        className={`fixed lg:static inset-y-0 left-0 z-30 w-64 text-white flex flex-col transition-transform duration-200 ${
+        className={`fixed lg:static inset-y-0 left-0 z-30 w-64 bg-slate-900 text-white flex flex-col transition-transform duration-200 ${
           menuAbierto ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="p-5 border-b border-white/10 flex items-center justify-between">
+        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden">
             {agencia?.logo_url ? (
               <img
                 src={agencia.logo_url}
                 alt={agencia.nombre}
-                className="w-9 h-9 rounded-lg object-cover bg-white"
+                className="w-9 h-9 rounded-lg object-contain bg-white p-0.5 shrink-0"
               />
             ) : (
-              <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
-                <Building2 className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
+                <Building2 className="w-5 h-5 text-blue-400" />
               </div>
             )}
             <div className="truncate">
               <p className="font-bold text-sm truncate">{agencia?.nombre || 'InmoFlow'}</p>
-              <span className="text-xs text-white/70 block truncate">{rol?.nombre}</span>
+              <span className="text-xs text-slate-400 block truncate">{rol?.nombre}</span>
             </div>
           </div>
           <button
             onClick={() => setMenuAbierto(false)}
-            className="lg:hidden text-white/70 hover:text-white"
+            className="lg:hidden text-slate-400 hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
@@ -133,8 +130,8 @@ export default function Layout() {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition ${
                     isActive
-                      ? 'bg-white/20 text-white shadow-sm'
-                      : 'text-white/75 hover:bg-white/10 hover:text-white'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   }`
                 }
               >
@@ -145,28 +142,30 @@ export default function Layout() {
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/10 space-y-3">
+        <div className="p-4 border-t border-slate-800 space-y-3">
           {agencia?.slug && (
             <a
               href={`/p/${agencia.slug}`}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-medium text-white transition"
+              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 transition"
             >
               <span>Ver Portal Público</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             </a>
           )}
 
           <div className="flex items-center justify-between pt-1">
             <div className="truncate pr-2">
-              <p className="text-xs font-semibold truncate">{perfil?.nombre_completo}</p>
-              <p className="text-[11px] text-white/60">Sesión activa</p>
+              <p className="text-xs font-semibold text-white truncate">
+                {perfil?.nombre_completo}
+              </p>
+              <p className="text-[11px] text-slate-400">Sesión activa</p>
             </div>
             <button
               onClick={handleLogout}
               title="Cerrar sesión"
-              className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition cursor-pointer"
+              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -185,7 +184,8 @@ export default function Layout() {
           </button>
 
           <div className="text-sm text-slate-500 hidden sm:block">
-            Entorno Operativo • <span className="font-medium text-slate-800">{agencia?.nombre}</span>
+            Entorno Operativo •{' '}
+            <span className="font-medium text-slate-800">{agencia?.nombre}</span>
           </div>
 
           <div className="flex items-center gap-2">

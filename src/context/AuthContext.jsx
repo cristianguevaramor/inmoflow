@@ -17,15 +17,17 @@ export function AuthProvider({ children }) {
           nombre_completo,
           telefono,
           activo,
-          agencia:agencias (
-            id,
-            nombre,
-            slug,
-            logo_url,
-            color_primario,
-            telefono_contacto,
-            correo_contacto
-          ),
+        agencia:agencias (
+         id,
+         nombre,
+         slug,
+         logo_url,
+         color_primario,
+         color_secundario,
+         texto_banner,
+         telefono_contacto,
+         correo_contacto
+       ),
           rol:roles (
             id,
             nombre,
