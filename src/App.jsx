@@ -1,122 +1,138 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Login from './pages/Login';
+import Layout from './components/Layout';
+import { Loader2 } from 'lucide-react';
 
-function App() {
-  const [count, setCount] = useState(0)
+function RutaProtegida({ children }) {
+  const { user, loading } = useAuth();
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <Loader2 className="w-8 h-8 animate-spin text-slate-800" />
+      </div>
+    );
+  }
 
-      <div className="ticks"></div>
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+  return children;
 }
 
-export default App
+function ModuloEnConstruccion({ titulo, descripcion }) {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200 p-8 shadow-sm">
+      <h2 className="text-xl font-bold text-slate-900">{titulo}</h2>
+      <p className="text-slate-500 mt-1 text-sm">{descripcion}</p>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/p/:slug"
+            element={
+              <ModuloEnConstruccion
+                titulo="Portal Web Inmobiliario Público"
+                descripcion="Catálogo dinámico por slug de agencia."
+              />
+            }
+          />
+
+          <Route
+            path="/"
+            element={
+              <RutaProtegida>
+                <Layout />
+              </RutaProtegida>
+            }
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="dashboard"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Dashboard BI"
+                  descripcion="Indicadores ejecutivos y rendimiento comercial."
+                />
+              }
+            />
+            <Route
+              path="inmuebles"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Gestión de Inmuebles"
+                  descripcion="Inventario de propiedades y publicación en portal web."
+                />
+              }
+            />
+            <Route
+              path="prospectos"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Prospectos Kanban"
+                  descripcion="Embudo comercial y bitácora cronológica."
+                />
+              }
+            />
+            <Route
+              path="fichas-roi"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Fichas PDF y Simulador ROI"
+                  descripcion="Generación de fichas comerciales y análisis de rentabilidad."
+                />
+              }
+            />
+            <Route
+              path="contratos"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Contratos y Alertas"
+                  descripcion="Control documental y vencimientos."
+                />
+              }
+            />
+            <Route
+              path="finanzas"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Finanzas y Comisiones"
+                  descripcion="Liquidación de comisiones por operación."
+                />
+              }
+            />
+            <Route
+              path="configuracion-portal"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Configuración de Portal Web"
+                  descripcion="Identidad visual, logo, color corporativo y slug."
+                />
+              }
+            />
+            <Route
+              path="usuarios-roles"
+              element={
+                <ModuloEnConstruccion
+                  titulo="Usuarios y Roles RBAC"
+                  descripcion="Administración de equipo y matriz de permisos."
+                />
+              }
+            />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
