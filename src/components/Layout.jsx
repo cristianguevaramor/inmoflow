@@ -45,12 +45,7 @@ export default function Layout() {
       icono: Kanban,
       visible: true,
     },
-    {
-      nombre: 'Fichas y ROI',
-      ruta: '/fichas-roi',
-      icono: FileSpreadsheet,
-      visible: tienePermiso('exportar_fichas_roi'),
-    },
+
     {
       nombre: 'Contratos',
       ruta: '/contratos',

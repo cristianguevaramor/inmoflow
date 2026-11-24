@@ -9,6 +9,8 @@ import PortalPublico from './pages/PortalPublico';
 import Dashboard from './pages/Dashboard';
 import GestionDocumental from './pages/GestionDocumental';
 import Inmuebles from './pages/Inmuebles';
+import Prospectos from './pages/Prospectos';
+import CalculadoraFinanzas from './pages/CalculadoraFinanzas';
 
 function RutaProtegida({ children }) {
   const { user, loading } = useAuth();
@@ -65,38 +67,21 @@ export default function App() {
             path="inmuebles" 
             element={<Inmuebles />} 
             />
-            
-            <Route
-              path="prospectos"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Prospectos Kanban"
-                  descripcion="Embudo comercial y bitácora cronológica."
-                />
-              }
+
+            <Route 
+            path="prospectos" 
+            element={<Prospectos />}
             />
-            <Route
-              path="fichas-roi"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Fichas PDF y Simulador ROI"
-                  descripcion="Generación de fichas comerciales y análisis de rentabilidad."
-                />
-              }
-            />
+
             <Route 
             path="contratos" 
             element={<GestionDocumental />} 
             />
-            <Route
-              path="finanzas"
-              element={
-                <ModuloEnConstruccion
-                  titulo="Finanzas y Comisiones"
-                  descripcion="Liquidación de comisiones por operación."
-                />
-              }
+            <Route 
+            path="finanzas" 
+            element={<CalculadoraFinanzas />} 
             />
+            
             <Route
               path="configuracion-portal"
               element={<ConfiguracionPortal />}

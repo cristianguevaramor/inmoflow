@@ -26,7 +26,8 @@ export function AuthProvider({ children }) {
          color_secundario,
          texto_banner,
          telefono_contacto,
-         correo_contacto
+         correo_contacto,
+         etapas_kanban
        ),
           rol:roles (
             id,
